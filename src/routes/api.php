@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,9 +15,11 @@ use App\Http\Controllers\ProductController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/register', [AuthController::class, 'register']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/products/search/{name}', [ProductController::class, 'search']);
+Route::post('/products', [ProductController::class, 'store']);
 
 Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::post('/products', [ProductController::class, 'store']);
